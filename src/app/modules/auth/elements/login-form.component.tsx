@@ -44,7 +44,7 @@ export function LoginForm() {
 
       <button
         type="submit"
-        className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+        className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 cursor-pointer"
       >
         Sign In
       </button>

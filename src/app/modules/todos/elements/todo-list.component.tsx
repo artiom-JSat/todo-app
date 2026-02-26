@@ -6,7 +6,7 @@ import { api } from '@/entities/api/todos/todos-client.api'
 import { Todo, TodoItemProps } from './todo.interface'
 
 export function TodoList({ initialData, userId }: { initialData: Todo[], userId: Todo['user_id'] }) {
-  const { data: todos, isLoading } = useQuery({
+  const { data: todos } = useQuery({
     queryKey: ['todos', userId],
     queryFn: () => api.get<TodoItemProps[]>('/todos'),
     initialData: initialData,

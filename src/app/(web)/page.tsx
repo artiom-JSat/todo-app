@@ -1,30 +1,19 @@
-import { AddTodoForm } from '@/modules/todos/elements/add-todo-form.component'
-import { createClient } from '@/shared/utils/supabase/server'
+import { Suspense } from 'react'
+import { UserInfo } from '@/modules/auth/elements/user-info.component'
 import { signOut } from '@/modules/auth/auth.service'
-import { TodoList } from '@/modules/todos/elements/todo-list.component'
-import { redirect } from 'next/navigation'
+import { AddTodoForm } from '@/modules/todos/elements/add-todo-form.component'
+import { TodoListServer } from '@/modules/todos/elements/todo-list-server.component'
 
-export default async function Home() {
-  const supabase = await createClient()
-
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    redirect('/login')
-  }
-
-  const { data: todos } = await supabase
-    .from('todos')
-    .select('*')
-    .order('created_at', { ascending: false })
-
+export default function Home() {
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">My Todos</h1>
-            <p className="text-gray-600">Logged in as: {user?.email}</p>
+            <Suspense fallback={<p className="text-gray-600">Loading...</p>}>
+              <UserInfo />
+            </Suspense>
           </div>
           <form>
             <button
@@ -37,7 +26,10 @@ export default async function Home() {
         </div>
 
         <AddTodoForm />
-        <TodoList initialData={todos || []} userId={user?.id} />
+
+        <Suspense fallback={<p className="text-gray-600">Loading...</p>}>
+          <TodoListServer />
+        </Suspense>
       </div>
     </div>
   )
