@@ -1,14 +1,20 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import { todoApi } from '@/entities/api'
 import { TodoItem } from './todo-items.component'
-import { api } from '@/entities/api/todos/todos-client.api'
-import { Todo, TodoItemProps } from './todo.interface'
+import { Todo, TodoItemProps } from '../todo.interface'
 
-export function TodoList({ initialData, userId }: { initialData: Todo[], userId: Todo['user_id'] }) {
+export function TodoList({
+  initialData,
+  userId,
+}: {
+  initialData: Todo[]
+  userId: Todo['user_id']
+}) {
   const { data: todos } = useQuery({
     queryKey: ['todos', userId],
-    queryFn: () => api.get<TodoItemProps[]>('/todos'),
+    queryFn: () => todoApi.get<TodoItemProps[]>('/todos'),
     initialData: initialData,
   })
 
@@ -16,11 +22,7 @@ export function TodoList({ initialData, userId }: { initialData: Todo[], userId:
     <div className="space-y-2">
       {todos && todos.length > 0 ? (
         todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            {...todo}
-            user_id={userId}
-          />
+          <TodoItem key={todo.id} {...todo} user_id={userId} />
         ))
       ) : (
         <p className="text-gray-400 text-center py-8">

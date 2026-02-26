@@ -2,7 +2,7 @@ type RequestOptions = RequestInit & {
   json?: unknown;
 };
 
-async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
+async function todoApiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { json, ...rest } = options;
 
   const config: RequestInit = {
@@ -27,9 +27,9 @@ async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Prom
   return response.json();
 }
 
-export const api = {
-  get: <T>(url: string) => apiFetch<T>(url, { method: 'GET' }),
-  post: <T, D = unknown>(url: string, data: D) => apiFetch<T>(url, { method: 'POST', json: data }),
-  patch: <T, D = unknown>(url: string, data: D) => apiFetch<T>(url, { method: 'PATCH', json: data }),
-  delete: <T>(url: string) => apiFetch<T>(url, { method: 'DELETE' }),
+export const todoApi = {
+  get: <T>(url: string) => todoApiFetch<T>(url, { method: 'GET' }),
+  post: <T, D = unknown>(url: string, data: D) => todoApiFetch<T>(url, { method: 'POST', json: data }),
+  patch: <T, D = unknown>(url: string, data: D) => todoApiFetch<T>(url, { method: 'PATCH', json: data }),
+  delete: <T>(url: string) => todoApiFetch<T>(url, { method: 'DELETE' }),
 };

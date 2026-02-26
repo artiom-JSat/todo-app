@@ -1,8 +1,9 @@
 import { Suspense } from 'react'
-import { UserInfo } from '@/modules/auth/elements/user-info.component'
 import { signOut } from '@/modules/auth/auth.service'
+import { UserInfo } from '@/entities/user'
 import { AddTodoForm } from '@/modules/todos/elements/add-todo-form.component'
 import { TodoListServer } from '@/modules/todos/elements/todo-list-server.component'
+import { Button } from '@/shared/ui'
 
 export default function Home() {
   return (
@@ -10,18 +11,15 @@ export default function Home() {
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">My Todos</h1>
+            <h1 className="scroll-m-20 text-left text-4xl font-extrabold tracking-tight text-balance">My Todos</h1>
             <Suspense fallback={<p className="text-gray-600">Loading...</p>}>
               <UserInfo />
             </Suspense>
           </div>
           <form>
-            <button
-              formAction={signOut}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 cursor-pointer"
-            >
+            <Button formAction={signOut} variant='outline' size='sm'>
               Sign Out
-            </button>
+            </Button>
           </form>
         </div>
 

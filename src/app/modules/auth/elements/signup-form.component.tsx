@@ -1,6 +1,9 @@
 'use client'
 
 import { useActionState } from 'react'
+import { Button } from '@/shared/ui/button'
+import { Input } from '@/shared/ui/input'
+import { Label } from '@/shared/ui/label'
 import { signUp } from '../auth.service'
 
 const initialState = { error: '' }
@@ -10,45 +13,39 @@ export function SignUpForm() {
 
   return (
     <form action={formAction} className="space-y-4">
-      <div>
-        <label htmlFor="signup-email" className="block text-sm font-medium">
-          Email
-        </label>
-        <input
-          id="signup-email"
-          name="email"
-          type="email"
-          required
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+      <div className="space-y-2">
+        <Label htmlFor="signup-email">Email</Label>
+        <Input 
+          id="signup-email" 
+          name="email" 
+          type="email" 
+          placeholder="name@example.com" 
+          required 
         />
       </div>
-
-      <div>
-        <label htmlFor="signup-password" className="block text-sm font-medium">
-          Password (min 6 characters)
-        </label>
-        <input
-          id="signup-password"
-          name="password"
-          type="password"
-          required
+      <div className="space-y-2">
+        <Label htmlFor="signup-password">Password</Label>
+        <Input 
+          id="signup-password" 
+          name="password" 
+          type="password" 
+          required 
           minLength={6}
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
         />
+        <p className="text-[0.8rem] text-muted-foreground">
+          Must be at least 6 characters.
+        </p>
       </div>
 
       {state?.error && (
-        <div className="text-red-600 text-sm bg-red-50 p-3 rounded-md">
+        <div className="text-destructive text-sm font-medium bg-destructive/10 p-3 rounded-md">
           {state.error}
         </div>
       )}
 
-      <button
-        type="submit"
-        className="w-full rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700 cursor-pointer"
-      >
-        Sign Up
-      </button>
+      <Button type="submit" variant="secondary" className="w-full">
+        Create Account
+      </Button>
     </form>
   )
 }
