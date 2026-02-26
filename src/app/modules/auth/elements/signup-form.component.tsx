@@ -1,10 +1,8 @@
 'use client'
 
 import { useActionState } from 'react'
-import { Button } from '@/shared/ui/button'
-import { Input } from '@/shared/ui/input'
-import { Label } from '@/shared/ui/label'
 import { signUp } from '../auth.service'
+import { Button, Input, Label } from '@/shared/ui'
 
 const initialState = { error: '' }
 

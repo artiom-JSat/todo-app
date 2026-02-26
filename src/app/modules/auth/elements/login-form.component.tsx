@@ -1,10 +1,8 @@
 'use client'
 
 import { useActionState } from 'react'
-import { Button } from '@/shared/ui/button'
-import { Input } from '@/shared/ui/input'
-import { Label } from '@/shared/ui/label'
 import { signIn } from '../auth.service'
+import { Button, Input, Label } from '@/shared/ui'
 
 const initialState = { error: '' }
 
@@ -15,21 +13,21 @@ export function LoginForm() {
     <form action={formAction} className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
-        <Input 
-          id="email" 
-          name="email" 
-          type="email" 
-          placeholder="name@example.com" 
-          required 
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="name@example.com"
+          required
         />
       </div>
       <div className="space-y-2">
         <Label htmlFor="password">Password</Label>
-        <Input 
-          id="password" 
-          name="password" 
-          type="password" 
-          required 
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          required
         />
       </div>
 
