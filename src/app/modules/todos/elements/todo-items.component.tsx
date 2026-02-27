@@ -9,7 +9,7 @@ import {
   ItemTitle,
 } from '@/shared/ui'
 import { TodoItemProps } from '../todo.interface'
-import { useTodoMutations } from '../hooks/use-todo-mutations'
+import { useTodoMutations } from '../hooks/use-todo.mutations'
 
 export function TodoItem({ id, title, completed }: TodoItemProps) {
   const { toggleTodo, deleteTodo, isDeleting } = useTodoMutations()
