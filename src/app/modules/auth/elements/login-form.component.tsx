@@ -2,8 +2,8 @@
 
 import { useActionState, startTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { signIn } from '../auth.service'
 import { Button, Input, Label, Spinner } from '@/shared/ui'
+import { signIn } from '../auth.service'
 import { AuthFormValues } from '../auth-form.interface'
 
 const initialState = { error: '' }
@@ -45,7 +45,8 @@ export function LoginForm() {
           id="email"
           type="email"
           autoComplete="email"
-          placeholder='name@example.com'
+          placeholder="name@example.com"
+          aria-invalid={!!errors.email}
         />
         {errors.email && (
           <p className="text-xs text-destructive">
@@ -64,6 +65,7 @@ export function LoginForm() {
           id="password"
           type="password"
           autoComplete="current-password"
+          aria-invalid={!!errors.password}
         />
         {errors.password && (
           <p className="text-xs text-destructive">

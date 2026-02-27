@@ -12,3 +12,7 @@ export interface TodoListProps {
 }
 
 export type TodoItemProps = Pick<Todo, 'id' | 'title' | 'completed' | 'user_id'>
+
+export type AddTodoValues = {
+  title: string
+}

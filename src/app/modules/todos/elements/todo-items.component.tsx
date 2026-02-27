@@ -61,6 +61,7 @@ export function TodoItem({
             variant="outline"
             onClick={() => deleteTodo()}
             disabled={isPending}
+            className='hover:bg-destructive hover:text-white'
           >
             Delete
           </Button>

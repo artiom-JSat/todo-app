@@ -7,3 +7,4 @@ export * from "./spinner";
 export * from "./item";
 export * from "./separator";
 export * from "./checkbox";
+export * from "./field";

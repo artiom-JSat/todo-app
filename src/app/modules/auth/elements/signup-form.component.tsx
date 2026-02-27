@@ -2,8 +2,8 @@
 
 import { useActionState, startTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { signUp } from '../auth.service'
 import { Button, Input, Label, Spinner } from '@/shared/ui'
+import { signUp } from '../auth.service'
 import { AuthFormValues } from '../auth-form.interface'
 
 const initialState = { error: '' }
@@ -45,7 +45,8 @@ export function SignUpForm() {
           id="email"
           type="email"
           autoComplete="email"
-          placeholder='name@example.com'
+          placeholder="name@example.com"
+          aria-invalid={!!errors.email}
         />
         {errors.email && (
           <p className="text-xs text-destructive">
@@ -64,13 +65,15 @@ export function SignUpForm() {
           id="password"
           type="password"
           autoComplete="current-password"
+          aria-invalid={!!errors.password}
         />
-        <p className="text-[0.8rem] text-muted-foreground">
-          Must be at least 6 characters.
-        </p>
-        {errors.password && (
+        {errors.password ? (
           <p className="text-xs text-destructive">
             {errors.password.message as string}
+          </p>
+        ) : (
+          <p className="text-xs text-muted-foreground">
+            Must be at least 6 characters
           </p>
         )}
       </div>
