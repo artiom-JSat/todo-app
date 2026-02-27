@@ -1,16 +1,11 @@
-import { createClient } from '@/shared/utils/supabase/server'
+'use client'
 
-export async function UserInfo() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+import { useUser } from '@/shared/hooks/use-user'
 
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+export function UserInfo() {
+  const { data: user } = useUser()
 
   if (!user) return null
 
-  return (
-    <div>
-      <p className="text-gray-600">Logged in as: {user?.email}</p>
-    </div>
-  )
+  return <p className="text-gray-600">Logged in as: {user.email}</p>
 }

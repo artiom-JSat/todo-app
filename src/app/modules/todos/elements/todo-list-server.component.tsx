@@ -3,10 +3,10 @@ import { TodoList } from './todo-list.component'
 
 export async function TodoListServer() {
   const supabase = await createClient()
-  
-  const { data: { user } } = await supabase.auth.getUser()
 
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
   if (!user) return null
 

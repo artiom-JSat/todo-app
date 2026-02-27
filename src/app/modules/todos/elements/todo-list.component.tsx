@@ -17,7 +17,7 @@ export function TodoList({
     queryFn: () => todoApi.get<TodoItemProps[]>('/todos'),
     initialData: initialData,
   })
-
+  
   return (
     <div className="space-y-2">
       {todos && todos.length > 0 ? (

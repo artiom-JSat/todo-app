@@ -1,8 +1,5 @@
 'use client'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { todoApi } from '@/entities/api'
-import { Todo, TodoItemProps } from '../todo.interface'
 import {
   Button,
   Checkbox,
@@ -11,46 +8,31 @@ import {
   ItemContent,
   ItemTitle,
 } from '@/shared/ui'
+import { TodoItemProps } from '../todo.interface'
+import { useTodoMutations } from '../hooks/use-todo-mutations'
 
-export function TodoItem({
-  id,
-  title,
-  completed,
-  user_id: userId,
-}: TodoItemProps) {
-  const queryClient = useQueryClient()
-
-  const { mutate: deleteTodo, isPending: isDeleting } = useMutation({
-    mutationFn: () => todoApi.delete(`/todos/${id}`),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['todos', userId] }),
-  })
-
-  const { mutate: toggleTodo, isPending: isToggling } = useMutation({
-    mutationFn: () =>
-      todoApi.patch<Todo, { completed: boolean }>(`/todos/${id}`, {
-        completed: !completed,
-      }),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['todos', userId] }),
-  })
-
-  const isPending = isToggling || isDeleting
+export function TodoItem({ id, title, completed }: TodoItemProps) {
+  const { toggleTodo, deleteTodo, isDeleting } = useTodoMutations()
 
   return (
     <div
-      className={`flex w-full flex-col gap-6 ${isToggling ? 'opacity-50' : 'opacity-100'}`}
+      className={`flex w-full flex-col gap-6 transition-opacity ${isDeleting ? 'opacity-50' : 'opacity-100'}`}
     >
-      <Item variant="outline" className={`${completed ? 'bg-gray-100' : ''}`}>
+      <Item
+        variant="outline"
+        className={`${completed ? 'bg-gray-100/50' : ''}`}
+      >
         <Checkbox
-          onClick={() => toggleTodo()}
+          onClick={() => toggleTodo({ id, completed })}
           checked={completed}
-          disabled={isPending}
+          disabled={isDeleting}
           type="button"
-          className='cursor-pointer'
+          className="cursor-pointer"
         />
         <ItemContent>
-          <ItemTitle className={`${completed ? 'line-through' : ''}`}>
+          <ItemTitle
+            className={`${completed ? 'line-through text-muted-foreground' : ''}`}
+          >
             {title}
           </ItemTitle>
         </ItemContent>
@@ -59,9 +41,9 @@ export function TodoItem({
             type="button"
             size="sm"
             variant="outline"
-            onClick={() => deleteTodo()}
-            disabled={isPending}
-            className='hover:bg-destructive hover:text-white'
+            onClick={() => deleteTodo(id)}
+            disabled={isDeleting}
+            className="hover:bg-destructive hover:text-white"
           >
             Delete
           </Button>
