@@ -1,34 +1,75 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, startTransition } from 'react'
+import { useForm } from 'react-hook-form'
 import { signIn } from '../auth.service'
-import { Button, Input, Label } from '@/shared/ui'
+import { Button, Input, Label, Spinner } from '@/shared/ui'
+import { AuthFormValues } from '../auth-form.interface'
 
 const initialState = { error: '' }
 
 export function LoginForm() {
-  const [state, formAction] = useActionState(signIn, initialState)
+  const [state, formAction, isPending] = useActionState(signIn, initialState)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AuthFormValues>({
+    defaultValues: { email: '', password: '' },
+    mode: 'onBlur',
+  })
+
+  const onSubmit = (data: AuthFormValues) => {
+    const formData = new FormData()
+    formData.append('email', data.email)
+    formData.append('password', data.password)
+
+    startTransition(() => {
+      formAction(formData)
+    })
+  }
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Invalid email format',
+            },
+          })}
           id="email"
-          name="email"
           type="email"
-          placeholder="name@example.com"
-          required
+          autoComplete="email"
+          placeholder='name@example.com'
         />
+        {errors.email && (
+          <p className="text-xs text-destructive">
+            {errors.email.message as string}
+          </p>
+        )}
       </div>
+
       <div className="space-y-2">
         <Label htmlFor="password">Password</Label>
         <Input
+          {...register('password', {
+            required: 'Password is required',
+            minLength: { value: 6, message: 'Min length is 6 characters' },
+          })}
           id="password"
-          name="password"
           type="password"
-          required
+          autoComplete="current-password"
         />
+        {errors.password && (
+          <p className="text-xs text-destructive">
+            {errors.password.message as string}
+          </p>
+        )}
       </div>
 
       {state?.error && (
@@ -37,8 +78,9 @@ export function LoginForm() {
         </div>
       )}
 
-      <Button type="submit" className="w-full">
+      <Button disabled={isPending} type="submit" className="w-full">
         Sign In
+        {isPending && <Spinner data-icon="inline-start" />}
       </Button>
     </form>
   )
