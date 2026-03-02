@@ -1,13 +1,13 @@
 'use client'
 
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardHeader, 
-  CardTitle 
-} from '@/shared/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/shared/ui/card/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs/tabs'
 import { LoginForm, SignUpForm } from '@/modules/auth'
 
 export default function LoginPage() {
@@ -23,14 +23,18 @@ export default function LoginPage() {
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="signin" className='cursor-pointer'>Sign In</TabsTrigger>
-              <TabsTrigger value="signup" className='cursor-pointer'>Sign Up</TabsTrigger>
+              <TabsTrigger value="signin" className="cursor-pointer">
+                Sign In
+              </TabsTrigger>
+              <TabsTrigger value="signup" className="cursor-pointer">
+                Sign Up
+              </TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="signin">
               <LoginForm />
             </TabsContent>
-            
+
             <TabsContent value="signup">
               <SignUpForm />
             </TabsContent>
