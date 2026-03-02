@@ -4,18 +4,24 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useUserQuery } from '@/entities/api/auth'
 import { todoApi } from '@/entities/api'
 import { Todo } from '../todo.interface'
+import { useTodoStore } from '../todo-list.store'
 
 export function useTodoMutations() {
   const queryClient = useQueryClient()
   const { data: user } = useUserQuery()
   const userId = user?.id
   const queryKey = ['todos', userId]
+  const setFilter = useTodoStore((state) => state.setFilter)
+  const currentFilter = useTodoStore((state) => state.filter)
 
   const addMutation = useMutation({
     mutationFn: (title: string) => {
       return todoApi.post<Todo, { title: string }>('/todos', { title })
     },
     onMutate: async (newTitle) => {
+      if (currentFilter === 'completed') {
+        setFilter('all')
+      }
       await queryClient.cancelQueries({ queryKey })
       const previousTodos = queryClient.getQueryData<Todo[]>(queryKey)
 

@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 import { Todo } from './todo.interface'
 
-export type FilterType = 'all' | 'active' | 'completed'
+export type TodoFilterType = 'all' | 'active' | 'completed'
 
 interface TodoStore {
-  filter: FilterType
-  setFilter: (filter: FilterType) => void
+  filter: TodoFilterType
+  setFilter: (filter: TodoFilterType) => void
 
   isModalOpen: boolean
   editData: Todo | null

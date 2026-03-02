@@ -1,31 +1,34 @@
 'use client'
 
-import { useTodoStore, FilterType } from '../todo-list.store'
+import { Tabs, TabsList, TabsTrigger } from '@/shared/ui'
+import { useTodoStore, TodoFilterType } from '../todo-list.store'
 
 export function TodoFilters() {
   const { filter, setFilter } = useTodoStore()
 
-  const buttons: { type: FilterType; label: string }[] = [
-    { type: 'all', label: 'Все' },
-    { type: 'active', label: 'Активные' },
-    { type: 'completed', label: 'Выполненные' },
+  const buttons: { type: TodoFilterType; label: string }[] = [
+    { type: 'all', label: 'All' },
+    { type: 'active', label: 'Active' },
+    { type: 'completed', label: 'Completed' },
   ]
 
   return (
-    <div className="flex gap-2 mb-6 shadow-sm p-1 bg-gray-100 rounded-lg w-fit">
-      {buttons.map((btn) => (
-        <button
-          key={btn.type}
-          onClick={() => setFilter(btn.type)}
-          className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
-            filter === btn.type
-              ? 'bg-white text-blue-600 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          {btn.label}
-        </button>
-      ))}
-    </div>
+    <Tabs
+      value={filter}
+      onValueChange={(value) => setFilter(value as TodoFilterType)}
+      className="w-full items-center"
+    >
+      <TabsList className="grid w-fit grid-cols-3">
+        {buttons.map((btn) => (
+          <TabsTrigger
+            key={btn.type}
+            value={btn.type}
+            className="cursor-pointer"
+          >
+            {btn.label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   )
 }
