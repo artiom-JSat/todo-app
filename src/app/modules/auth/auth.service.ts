@@ -45,7 +45,7 @@ export async function signIn(prevState: unknown, formData: FormData) {
 export async function signOut() {
   const supabase = await createClient()
   await supabase.auth.signOut()
-
+  
   revalidatePath('/')
   redirect('/login')
 }

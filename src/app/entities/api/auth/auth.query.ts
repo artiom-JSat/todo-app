@@ -7,6 +7,6 @@ export function useUserQuery() {
   return useQuery({
     queryKey: ['auth-user'],
     queryFn: () => getSessionUser(),
-    staleTime: Infinity,
+    staleTime: 0,
   })
 }

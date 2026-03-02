@@ -1,8 +1,7 @@
 import { Suspense } from 'react'
-import { Button } from '@/shared/ui'
-import { signOut } from '@/modules/auth'
 import { UserInfo } from '@/modules/user'
 import { AddTodoForm, TodoListServer } from '@/modules/todos'
+import { SignOutButton } from '@/features/auth/ui'
 
 export default function Home() {
   return (
@@ -13,17 +12,11 @@ export default function Home() {
             <h1 className="scroll-m-20 text-left text-4xl font-extrabold tracking-tight text-balance">
               My Todos
             </h1>
-            <Suspense fallback={<p className="text-gray-600">Loading...</p>}>
-              <UserInfo />
-            </Suspense>
+            <UserInfo />
           </div>
-          <Button onClick={signOut} variant="outline" size="sm">
-            Sign Out
-          </Button>
+          <SignOutButton />
         </div>
-
-        <AddTodoForm />
-
+       <AddTodoForm />
         <Suspense fallback={<p className="text-gray-600">Loading...</p>}>
           <TodoListServer />
         </Suspense>

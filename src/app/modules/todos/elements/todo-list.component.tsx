@@ -16,6 +16,7 @@ export function TodoList({
     queryKey: ['todos', userId],
     queryFn: () => todoApi.get<TodoItemProps[]>('/todos'),
     initialData: initialData,
+    enabled: !!userId
   })
   
   return (
