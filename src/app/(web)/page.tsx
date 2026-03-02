@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { Button } from '@/shared/ui'
 import { signOut } from '@/modules/auth'
-import { UserInfo } from '@/entities/user'
+import { UserInfo } from '@/modules/user'
 import { AddTodoForm, TodoListServer } from '@/modules/todos'
 
 export default function Home() {

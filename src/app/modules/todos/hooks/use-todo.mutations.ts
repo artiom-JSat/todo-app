@@ -1,13 +1,13 @@
 'use client'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useUserQuery } from '@/entities/api/auth'
 import { todoApi } from '@/entities/api'
 import { Todo } from '../todo.interface'
-import { useUser } from '@/shared/hooks/use-user'
 
 export function useTodoMutations() {
   const queryClient = useQueryClient()
-  const { data: user } = useUser()
+  const { data: user } = useUserQuery()
   const userId = user?.id
   const queryKey = ['todos', userId ?? 'anonymous']
 
@@ -29,12 +29,13 @@ export function useTodoMutations() {
       const previousTodos = queryClient.getQueryData<Todo[]>(queryKey)
 
       queryClient.setQueryData<Todo[]>(queryKey, (old) =>
-        old?.filter((todo) => todo.id !== id)
+        old?.filter((todo) => todo.id !== id),
       )
       return { previousTodos }
     },
     onError: (_err, _vars, context) => {
-      if (context?.previousTodos) queryClient.setQueryData(queryKey, context.previousTodos)
+      if (context?.previousTodos)
+        queryClient.setQueryData(queryKey, context.previousTodos)
     },
     onSettled: () => queryClient.invalidateQueries({ queryKey }),
   })
@@ -52,13 +53,14 @@ export function useTodoMutations() {
 
       queryClient.setQueryData<Todo[]>(queryKey, (old) =>
         old?.map((todo) =>
-          todo.id === id ? { ...todo, completed: !completed } : todo
-        )
+          todo.id === id ? { ...todo, completed: !completed } : todo,
+        ),
       )
       return { previousTodos }
     },
     onError: (_err, _vars, context) => {
-      if (context?.previousTodos) queryClient.setQueryData(queryKey, context.previousTodos)
+      if (context?.previousTodos)
+        queryClient.setQueryData(queryKey, context.previousTodos)
     },
     onSettled: () => queryClient.invalidateQueries({ queryKey }),
   })
@@ -85,7 +87,8 @@ export function useTodoMutations() {
       return { previousTodos }
     },
     onError: (_err, _vars, context) => {
-      if (context?.previousTodos) queryClient.setQueryData(queryKey, context.previousTodos)
+      if (context?.previousTodos)
+        queryClient.setQueryData(queryKey, context.previousTodos)
     },
     onSettled: () => queryClient.invalidateQueries({ queryKey }),
   })

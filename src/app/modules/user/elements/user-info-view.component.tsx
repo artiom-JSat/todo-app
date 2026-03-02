@@ -1,9 +1,9 @@
 'use client'
 
-import { useUser } from '@/shared/hooks/use-user'
+import { useUserQuery } from "@/entities/api/auth"
 
 export function UserInfoView() {
-  const { data: user } = useUser()
+  const { data: user } = useUserQuery()
 
   if (!user) return null
 

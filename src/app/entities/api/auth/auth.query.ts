@@ -1,9 +1,9 @@
 'use client'
 
-import { getSessionUser } from '@/entities/auth/auth.actions'
 import { useQuery } from '@tanstack/react-query'
+import { getSessionUser } from './auth.api'
 
-export function useUser() {
+export function useUserQuery() {
   return useQuery({
     queryKey: ['auth-user'],
     queryFn: () => getSessionUser(),

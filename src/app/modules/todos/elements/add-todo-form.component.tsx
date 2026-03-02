@@ -2,8 +2,8 @@
 
 import { useForm } from 'react-hook-form'
 import { Button, Input, Spinner } from '@/shared/ui'
+import { useTodoMutations } from '../hooks'
 import { AddTodoValues } from '../todo.interface'
-import { useTodoMutations } from '../hooks/use-todo.mutations'
 
 export function AddTodoForm() {
   const { addTodo, isAdding } = useTodoMutations()
