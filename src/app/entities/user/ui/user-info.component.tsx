@@ -1,11 +1,15 @@
 'use client'
 
-import { useUser } from '@/shared/hooks/use-user'
+import dynamic from 'next/dynamic'
+
+const UserInfoView = dynamic(
+  () => import('./user-info.view').then((mod) => mod.UserInfoView),
+  {
+    ssr: false,
+    loading: () => <p className="text-gray-600">Loading...</p>
+  },
+)
 
 export function UserInfo() {
-  const { data: user } = useUser()
-
-  if (!user) return null
-
-  return <p className="text-gray-600">Logged in as: {user.email}</p>
+  return <UserInfoView />
 }
