@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { todoApi } from '@/entities/api'
-import { TodoItem } from './todo-items.component'
+import { TodoItem } from './todo-item.component'
 import { Todo, TodoItemProps } from '../todo.interface'
 
 export function TodoList({
