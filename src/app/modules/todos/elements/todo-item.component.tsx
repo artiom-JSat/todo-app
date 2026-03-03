@@ -18,11 +18,10 @@ export function TodoItem({ id, title, completed }: TodoItemProps) {
 
   return (
     <div
-      className={`flex w-full flex-col gap-6 transition-opacity ${isDeleting ? 'opacity-50' : 'opacity-100'}`}
+      className={`transition-opacity ${isDeleting ? 'opacity-50' : 'opacity-100'}`}
     >
       <Item
-        variant="outline"
-        className={`${completed ? 'bg-gray-100/50' : ''}`}
+        variant={`${completed ? 'muted' : 'outline'}`}
       >
         <Checkbox
           onClick={() => toggleTodo({ id, completed })}
