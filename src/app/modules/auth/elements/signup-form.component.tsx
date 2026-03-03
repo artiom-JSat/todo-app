@@ -84,11 +84,7 @@ export function SignUpForm() {
         </div>
       )}
 
-      <Button
-        type="submit"
-        className="w-full"
-        disabled={!isValid || isPending}
-      >
+      <Button type="submit" className="w-full" disabled={!isValid || isPending}>
         Create Account
         {isPending && <Spinner data-icon="inline-start" />}
       </Button>

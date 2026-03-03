@@ -6,8 +6,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/card/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs/tabs'
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/shared/ui'
 import { LoginForm, SignUpForm } from '@/modules/auth'
 
 export default function LoginPage() {
