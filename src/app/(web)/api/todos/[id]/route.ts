@@ -7,15 +7,20 @@ export async function PATCH(
 ) {
   const { id } = await params
   const supabase = await createClient()
-  const { completed } = await request.json()
+  
+  const body = await request.json()
 
   const { data, error } = await supabase
     .from('todos')
-    .update({ completed })
+    .update(body) 
     .eq('id', id)
     .select()
+    .single()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
   return NextResponse.json(data)
 }
 

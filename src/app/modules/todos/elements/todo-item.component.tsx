@@ -10,9 +10,11 @@ import {
 } from '@/shared/ui'
 import { TodoItemProps } from '../todos.interface'
 import { useTodoMutations } from '../hooks'
+import { useTodoStore } from '../todos.store'
 
 export function TodoItem({ id, title, completed }: TodoItemProps) {
   const { toggleTodo, deleteTodo, isDeleting } = useTodoMutations()
+  const setEditingTodo = useTodoStore((state) => state.setEditingTodo)
 
   return (
     <div
@@ -37,6 +39,14 @@ export function TodoItem({ id, title, completed }: TodoItemProps) {
           </ItemTitle>
         </ItemContent>
         <ItemActions>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setEditingTodo({ id, title, completed })}
+          >
+            Edit
+          </Button>
           <Button
             type="button"
             size="sm"

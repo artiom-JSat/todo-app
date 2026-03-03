@@ -1,24 +1,34 @@
 import { create } from 'zustand'
-import { Todo } from './todos.interface'
+import { TodoItemProps } from './todos.interface'
 
 export type TodoFilterType = 'all' | 'active' | 'completed'
 
 interface TodoStore {
   filter: TodoFilterType
-  setFilter: (filter: TodoFilterType) => void
 
-  isModalOpen: boolean
-  editData: Todo | null
-  openEditModal: (todo: Todo) => void
-  closeEditModal: () => void
+  editingTodo: TodoItemProps | null
+  editTitle: string
+
+  setFilter: (filter: TodoFilterType) => void
+  setEditingTodo: (todo: TodoItemProps | null) => void
+  setEditTitle: (title: string) => void
+  reset: () => void
+}
+
+const initialState = {
+  filter: 'all' as const,
+  editingTodo: null,
+  editTitle: '',
 }
 
 export const useTodoStore = create<TodoStore>((set) => ({
-  filter: 'all',
+  ...initialState,
   setFilter: (filter) => set({ filter }),
-
-  isModalOpen: false,
-  editData: null,
-  openEditModal: (todo) => set({ isModalOpen: true, editData: todo }),
-  closeEditModal: () => set({ isModalOpen: false, editData: null }),
+  setEditingTodo: (todo) =>
+    set({
+      editingTodo: todo,
+      editTitle: todo?.title ?? '',
+    }),
+  setEditTitle: (title) => set({ editTitle: title }),
+  reset: () => set(initialState),
 }))

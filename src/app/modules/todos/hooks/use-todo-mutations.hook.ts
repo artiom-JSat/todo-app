@@ -27,7 +27,7 @@ export function useTodoMutations() {
 
       queryClient.setQueryData<Todo[]>(queryKey, (old = []) => [
         {
-          id: `temp-${Date.now()}`,
+          id: crypto.randomUUID(),
           title: newTitle,
           completed: false,
           user_id: userId || '',
@@ -42,6 +42,32 @@ export function useTodoMutations() {
         queryClient.setQueryData(queryKey, context.previousTodos)
     },
     onSettled: () => queryClient.invalidateQueries({ queryKey }),
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, title }: { id: string; title: string }) => {
+      return todoApi.patch<Todo>(`/todos/${id}`, { title })
+    },
+    onMutate: async (newTodo) => {
+      await queryClient.cancelQueries({ queryKey })
+      const previousTodos = queryClient.getQueryData<Todo[]>(queryKey)
+
+      queryClient.setQueryData<Todo[]>(queryKey, (old) => {
+        return old?.map((todo) =>
+          todo.id === newTodo.id ? { ...todo, title: newTodo.title } : todo,
+        )
+      })
+
+      return { previousTodos }
+    },
+    onError: (_err, _newTodo, context) => {
+      if (context?.previousTodos) {
+        queryClient.setQueryData(queryKey, context.previousTodos)
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
+    },
   })
 
   const toggleMutation = useMutation({
@@ -91,6 +117,8 @@ export function useTodoMutations() {
   return {
     addTodo: addMutation.mutate,
     isAdding: addMutation.isPending,
+    updateTodo: updateMutation.mutate,
+    isUpdating: updateMutation.isPending,
     toggleTodo: toggleMutation.mutate,
     isToggling: toggleMutation.isPending,
     deleteTodo: deleteMutation.mutate,

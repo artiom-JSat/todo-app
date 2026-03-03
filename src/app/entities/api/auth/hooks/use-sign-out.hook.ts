@@ -6,12 +6,11 @@ import { useTodoStore } from '@/modules/todos/todos.store'
 
 export function useSignOut() {
   const queryClient = useQueryClient()
+  const resetTodos = useTodoStore((state) => state.reset)
 
   const handleSignOut = async () => {
     queryClient.clear()
-
-    useTodoStore.getState().setFilter('all')
-
+    resetTodos()
     await signOut()
   }
 

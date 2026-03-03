@@ -6,6 +6,7 @@ import { useTodoStore } from '../todos.store'
 import { TodoItem } from './todo-item.component'
 import { Todo, TodoItemProps } from '../todos.interface'
 import { TodoFilters } from './todo-filters.component'
+import { EditTodoModal } from './edit-todo-modal.component'
 
 export function TodoList({
   initialData,
@@ -44,6 +45,7 @@ export function TodoList({
           </p>
         )}
       </div>
+      <EditTodoModal />
     </div>
   )
 }
