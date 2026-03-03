@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { Todo } from './todo.interface'
+import { Todo } from './todos.interface'
 
 export type TodoFilterType = 'all' | 'active' | 'completed'
 

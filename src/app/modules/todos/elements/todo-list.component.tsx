@@ -2,9 +2,9 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { todoApi } from '@/entities/api'
-import { useTodoStore } from '../todo-list.store'
+import { useTodoStore } from '../todos.store'
 import { TodoItem } from './todo-item.component'
-import { Todo, TodoItemProps } from '../todo.interface'
+import { Todo, TodoItemProps } from '../todos.interface'
 import { TodoFilters } from './todo-filters.component'
 
 export function TodoList({
@@ -20,7 +20,7 @@ export function TodoList({
     queryKey: ['todos', userId],
     queryFn: () => todoApi.get<TodoItemProps[]>('/todos'),
     initialData: initialData,
-    enabled: !!userId
+    enabled: !!userId,
   })
 
   const filteredTodos = todos.filter((todo) => {
@@ -35,16 +35,11 @@ export function TodoList({
 
       <div className="space-y-2">
         {filteredTodos.length > 0 ? (
-          filteredTodos.map((todo) => (
-            <TodoItem 
-              key={todo.id} 
-              {...todo}
-            />
-          ))
+          filteredTodos.map((todo) => <TodoItem key={todo.id} {...todo} />)
         ) : (
           <p className="text-gray-400 text-center py-8">
-            {filter === 'all' 
-              ? 'No todos yet. Add one above!' 
+            {filter === 'all'
+              ? 'No todos yet. Add one above!'
               : `No ${filter} todos found.`}
           </p>
         )}

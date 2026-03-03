@@ -8,7 +8,7 @@ import {
   ItemContent,
   ItemTitle,
 } from '@/shared/ui'
-import { TodoItemProps } from '../todo.interface'
+import { TodoItemProps } from '../todos.interface'
 import { useTodoMutations } from '../hooks'
 
 export function TodoItem({ id, title, completed }: TodoItemProps) {

@@ -3,8 +3,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useUserQuery } from '@/entities/api/auth'
 import { todoApi } from '@/entities/api'
-import { Todo } from '../todo.interface'
-import { useTodoStore } from '../todo-list.store'
+import { Todo } from '../todos.interface'
+import { useTodoStore } from '../todos.store'
 
 export function useTodoMutations() {
   const queryClient = useQueryClient()

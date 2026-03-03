@@ -1,7 +1,7 @@
 'use client'
 
 import { Tabs, TabsList, TabsTrigger } from '@/shared/ui'
-import { useTodoStore, TodoFilterType } from '../todo-list.store'
+import { useTodoStore, TodoFilterType } from '../todos.store'
 
 export function TodoFilters() {
   const { filter, setFilter } = useTodoStore()
