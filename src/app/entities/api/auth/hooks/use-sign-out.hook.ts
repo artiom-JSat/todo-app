@@ -2,7 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query'
 import { signOut } from '@/modules/auth'
-import { useTodoStore } from '@/modules/todos/todos.store'
+import { useTodoStore } from '@/modules/todos'
 
 export function useSignOut() {
   const queryClient = useQueryClient()

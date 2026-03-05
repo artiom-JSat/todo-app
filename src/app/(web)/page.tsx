@@ -1,6 +1,5 @@
-import { Suspense } from 'react'
 import { UserInfo } from '@/modules/user'
-import { AddTodoForm, TodoListServer } from '@/modules/todos'
+import { AddTodoForm, TodoList } from '@/modules/todos'
 import { SignOutButton } from '@/features/auth/ui'
 
 export default function Home() {
@@ -16,10 +15,8 @@ export default function Home() {
           </div>
           <SignOutButton />
         </div>
-       <AddTodoForm />
-        <Suspense fallback={<p className="text-gray-600">Loading...</p>}>
-          <TodoListServer />
-        </Suspense>
+        <AddTodoForm />
+        <TodoList />
       </div>
     </div>
   )

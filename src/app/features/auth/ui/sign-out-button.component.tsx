@@ -1,7 +1,7 @@
 'use client'
 
-import { useSignOut } from '@/entities/api/auth'
 import { Button } from '@/shared/ui'
+import { useSignOut } from '@/entities/api/auth'
 
 export function SignOutButton() {
   const { handleSignOut } = useSignOut()

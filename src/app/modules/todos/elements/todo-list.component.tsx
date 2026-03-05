@@ -1,28 +1,16 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { todoApi } from '@/entities/api'
+import { useUserQuery } from '@/entities/api/auth'
+import { useTodos } from '../hooks'
 import { useTodoStore } from '../todos.store'
 import { TodoItem } from './todo-item.component'
-import { Todo, TodoItemProps } from '../todos.interface'
 import { TodoFilters } from './todo-filters.component'
 import { EditTodoModal } from './edit-todo-modal.component'
 
-export function TodoList({
-  initialData,
-  userId,
-}: {
-  initialData: Todo[]
-  userId: Todo['user_id']
-}) {
+export function TodoList() {
+  const { data: user, isLoading: isUserLoading } = useUserQuery()
+  const { data: todos = [], isLoading: isTodosLoading, isError } = useTodos()
   const filter = useTodoStore((state) => state.filter)
-
-  const { data: todos = [] } = useQuery({
-    queryKey: ['todos', userId],
-    queryFn: () => todoApi.get<TodoItemProps[]>('/todos'),
-    initialData: initialData,
-    enabled: !!userId,
-  })
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'active') return !todo.completed
@@ -30,10 +18,21 @@ export function TodoList({
     return true
   })
 
+  if (isUserLoading || isTodosLoading) {
+    return <div className="text-gray-600">Loading...</div>
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center py-10 text-red-500">Error loading data.</div>
+    )
+  }
+
+  if (!user) return null
+
   return (
     <div className="space-y-4">
       <TodoFilters />
-
       <div className="space-y-2">
         {filteredTodos.length > 0 ? (
           filteredTodos.map((todo) => <TodoItem key={todo.id} {...todo} />)

@@ -1,2 +1,2 @@
 export { AddTodoForm } from "./add-todo-form.component";
-export { TodoListServer } from "./todo-list-server.component";
+export { TodoList } from "./todo-list.component";
