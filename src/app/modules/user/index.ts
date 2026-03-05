@@ -1,1 +1,1 @@
-export { UserInfo } from "./user-info.module";
+export { UserInfo } from "./elements";

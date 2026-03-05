@@ -1,6 +1,7 @@
-import { UserInfo } from '@/modules/user'
+
 import { AddTodoForm, TodoList } from '@/modules/todos'
 import { SignOutButton } from '@/features/auth/ui'
+import { UserInfo } from '@/modules/user'
 
 export default function Home() {
   return (

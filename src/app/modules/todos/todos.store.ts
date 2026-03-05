@@ -43,5 +43,4 @@ const useTodoStore = create<TodoStore>((set) => ({
 export const useFilterTodos = () => useTodoStore((state) => state.filterTodos)
 export const useEditTodo = () => useTodoStore((state) => state.editTodo)
 export const useEditTitleTodo = () => useTodoStore((state) => state.editTitleTodo)
-
 export const useTodoActions = () => useTodoStore((state) => (state.actions))

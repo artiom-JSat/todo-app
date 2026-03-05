@@ -1,1 +1,1 @@
-export { UserInfoView } from "./user-info-view.component";
+export { UserInfo } from "./user-info.component";
