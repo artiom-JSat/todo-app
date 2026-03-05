@@ -3,21 +3,25 @@ import { TodoItemProps } from './todos.interface'
 
 export type TodosFilterType = 'all' | 'active' | 'completed'
 
-interface TodoStore {
+interface TodoState {
   filterTodos: TodosFilterType
   editTodo: TodoItemProps | null
   editTitleTodo: string
-
-  actions: {
-    setFilterTodos: (filter: TodosFilterType) => void
-    setEditTodo: (todo: TodoItemProps | null) => void
-    setEditTitleTodo: (title: string) => void
-    setResetTodos: () => void
-  }
 }
 
-const initialState = {
-  filterTodos: 'all' as const,
+interface TodoActions {
+  setFilterTodos: (filter: TodosFilterType) => void
+  setEditTodo: (todo: TodoItemProps | null) => void
+  setEditTitleTodo: (title: string) => void
+  setResetTodos: () => void
+}
+
+interface TodoStore extends TodoState {
+  actions: TodoActions
+}
+
+const initialState: TodoState = {
+  filterTodos: 'all',
   editTodo: null,
   editTitleTodo: '',
 }
