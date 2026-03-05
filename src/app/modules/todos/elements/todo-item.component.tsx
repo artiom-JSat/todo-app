@@ -10,19 +10,17 @@ import {
 } from '@/shared/ui'
 import { TodoItemProps } from '../todos.interface'
 import { useTodoMutations } from '../hooks'
-import { useTodoStore } from '../todos.store'
+import { useTodoActions } from '../todos.store'
 
 export function TodoItem({ id, title, completed }: TodoItemProps) {
   const { toggleTodo, deleteTodo, isDeleting } = useTodoMutations()
-  const setEditingTodo = useTodoStore((state) => state.setEditingTodo)
+  const { setEditTodo } = useTodoActions()
 
   return (
     <div
       className={`transition-opacity ${isDeleting ? 'opacity-50' : 'opacity-100'}`}
     >
-      <Item
-        variant={`${completed ? 'muted' : 'outline'}`}
-      >
+      <Item variant={`${completed ? 'muted' : 'outline'}`}>
         <Checkbox
           onClick={() => toggleTodo({ id, completed })}
           checked={completed}
@@ -42,7 +40,7 @@ export function TodoItem({ id, title, completed }: TodoItemProps) {
             type="button"
             variant="outline"
             size="sm"
-            onClick={() => setEditingTodo({ id, title, completed })}
+            onClick={() => setEditTodo({ id, title, completed })}
           >
             Edit
           </Button>

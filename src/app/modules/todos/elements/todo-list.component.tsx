@@ -2,7 +2,7 @@
 
 import { useUserQuery } from '@/entities/api/auth'
 import { useTodos } from '../hooks'
-import { useTodoStore } from '../todos.store'
+import { useFilterTodos } from '../todos.store'
 import { TodoItem } from './todo-item.component'
 import { TodoFilters } from './todo-filters.component'
 import { EditTodoModal } from './edit-todo-modal.component'
@@ -10,7 +10,7 @@ import { EditTodoModal } from './edit-todo-modal.component'
 export function TodoList() {
   const { data: user, isLoading: isUserLoading } = useUserQuery()
   const { data: todos = [], isLoading: isTodosLoading, isError } = useTodos()
-  const filter = useTodoStore((state) => state.filter)
+  const filter = useFilterTodos()
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'active') return !todo.completed

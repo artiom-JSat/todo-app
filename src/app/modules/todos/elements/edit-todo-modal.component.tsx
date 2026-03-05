@@ -11,25 +11,26 @@ import {
   Spinner,
   DialogDescription,
 } from '@/shared/ui'
-import { useTodoStore } from '../todos.store'
+import { useEditTitleTodo, useEditTodo, useTodoActions } from '../todos.store'
 import { useTodoMutations } from '../hooks/use-todo-mutations.hook'
 
 export function EditTodoModal() {
-  const { editingTodo, editTitle, setEditTitle, setEditingTodo } =
-    useTodoStore()
+  const editTodo = useEditTodo()
+  const editTitleTodo = useEditTitleTodo()
+  const { setEditTodo, setEditTitleTodo } = useTodoActions()
   const { updateTodo, isUpdating } = useTodoMutations()
 
   const handleSave = () => {
-    if (!editingTodo || !editTitle.trim()) return
+    if (!editTodo || !editTitleTodo.trim()) return
 
     updateTodo(
-      { 
-        id: editingTodo.id, 
-        title: editTitle.trim()
+      {
+        id: editTodo.id,
+        title: editTitleTodo.trim(),
       },
       {
         onSuccess: () => {
-          setEditingTodo(null)
+          setEditTodo(null)
         },
       },
     )
@@ -37,8 +38,8 @@ export function EditTodoModal() {
 
   return (
     <Dialog
-      open={!!editingTodo}
-      onOpenChange={(open) => !open && setEditingTodo(null)}
+      open={!!editTodo}
+      onOpenChange={(open) => !open && setEditTodo(null)}
     >
       <DialogContent>
         <DialogHeader>
@@ -50,8 +51,8 @@ export function EditTodoModal() {
 
         <div className="py-4">
           <Input
-            value={editTitle}
-            onChange={(e) => setEditTitle(e.target.value)}
+            value={editTitleTodo}
+            onChange={(e) => setEditTitleTodo(e.target.value)}
             placeholder="What needs to be done?"
             onKeyDown={(e) => e.key === 'Enter' && handleSave()}
             autoFocus
@@ -61,14 +62,14 @@ export function EditTodoModal() {
         <DialogFooter>
           <Button
             variant="outline"
-            onClick={() => setEditingTodo(null)}
+            onClick={() => setEditTodo(null)}
             disabled={isUpdating}
           >
             Cancel
           </Button>
           <Button
             onClick={handleSave}
-            disabled={isUpdating || !editTitle.trim()}
+            disabled={isUpdating || !editTitleTodo.trim()}
           >
             Save Changes
             {isUpdating && <Spinner data-icon="inline-start" />}

@@ -1,34 +1,43 @@
 import { create } from 'zustand'
 import { TodoItemProps } from './todos.interface'
 
-export type TodoFilterType = 'all' | 'active' | 'completed'
+export type TodosFilterType = 'all' | 'active' | 'completed'
 
 interface TodoStore {
-  filter: TodoFilterType
+  filterTodos: TodosFilterType
+  editTodo: TodoItemProps | null
+  editTitleTodo: string
 
-  editingTodo: TodoItemProps | null
-  editTitle: string
-
-  setFilter: (filter: TodoFilterType) => void
-  setEditingTodo: (todo: TodoItemProps | null) => void
-  setEditTitle: (title: string) => void
-  reset: () => void
+  actions: {
+    setFilterTodos: (filter: TodosFilterType) => void
+    setEditTodo: (todo: TodoItemProps | null) => void
+    setEditTitleTodo: (title: string) => void
+    setResetTodos: () => void
+  }
 }
 
 const initialState = {
-  filter: 'all' as const,
-  editingTodo: null,
-  editTitle: '',
+  filterTodos: 'all' as const,
+  editTodo: null,
+  editTitleTodo: '',
 }
 
-export const useTodoStore = create<TodoStore>((set) => ({
+const useTodoStore = create<TodoStore>((set) => ({
   ...initialState,
-  setFilter: (filter) => set({ filter }),
-  setEditingTodo: (todo) =>
-    set({
-      editingTodo: todo,
-      editTitle: todo?.title ?? '',
-    }),
-  setEditTitle: (title) => set({ editTitle: title }),
-  reset: () => set(initialState),
+  actions: {
+    setFilterTodos: (filter) => set({ filterTodos: filter }),
+    setEditTodo: (todo) =>
+      set({
+        editTodo: todo,
+        editTitleTodo: todo?.title ?? '',
+      }),
+    setEditTitleTodo: (title) => set({ editTitleTodo: title }),
+    setResetTodos: () => set(initialState),
+  },
 }))
+
+export const useFilterTodos = () => useTodoStore((state) => state.filterTodos)
+export const useEditTodo = () => useTodoStore((state) => state.editTodo)
+export const useEditTitleTodo = () => useTodoStore((state) => state.editTitleTodo)
+
+export const useTodoActions = () => useTodoStore((state) => (state.actions))

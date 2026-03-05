@@ -1,16 +1,16 @@
 'use client'
 
 import { useQueryClient } from '@tanstack/react-query'
+import { useTodoActions } from '@/modules/todos'
 import { signOut } from '@/modules/auth'
-import { useTodoStore } from '@/modules/todos'
 
 export function useSignOut() {
   const queryClient = useQueryClient()
-  const resetTodos = useTodoStore((state) => state.reset)
+  const { setResetTodos } = useTodoActions()
 
   const handleSignOut = async () => {
     queryClient.clear()
-    resetTodos()
+    setResetTodos()
     await signOut()
   }
 
