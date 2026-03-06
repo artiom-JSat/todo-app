@@ -1,3 +1,5 @@
+export { ModeToggle } from './mode-toggle'
+
 export * from './card'
 export * from './checkbox'
 export * from './button'

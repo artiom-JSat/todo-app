@@ -2,6 +2,7 @@
 import { AddTodoForm, TodoList } from '@/modules/todos'
 import { SignOutButton } from '@/features/auth/ui'
 import { UserInfo } from '@/modules/user'
+import { ModeToggle } from '@/shared/ui'
 
 export default function Home() {
   return (
@@ -14,7 +15,11 @@ export default function Home() {
             </h1>
             <UserInfo />
           </div>
+          <div className='flex gap-2'>
+          <ModeToggle />
           <SignOutButton />
+
+          </div>
         </div>
         <AddTodoForm />
         <TodoList />
