@@ -1,17 +1,20 @@
 'use client'
 
-import { Moon, Sun } from 'lucide-react'
+import { useState } from 'react'
 import { useTheme } from 'next-themes'
+import { Moon, Sun } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '../dropdown-menu'
 import { Button } from '../button'
 
 export function ModeToggle() {
   const { setTheme } = useTheme()
+  const [position, setPosition] = useState('system')
 
   return (
     <DropdownMenu>
@@ -23,15 +26,17 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
-          System
-        </DropdownMenuItem>
+        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+          <DropdownMenuRadioItem onClick={() => setTheme('light')} value={'light'} >
+            Light
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem onClick={() => setTheme('dark')} value={'dark'}>
+            Dark
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem onClick={() => setTheme('system')} value={'system'}>
+            System
+          </DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   )
