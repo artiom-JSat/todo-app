@@ -1,4 +1,3 @@
-
 import { AddTodoForm, TodoList } from '@/modules/todos'
 import { SignOutButton } from '@/features/auth/ui'
 import { UserInfo } from '@/modules/user'
@@ -14,11 +13,6 @@ export default function Home() {
               My Todos
             </h1>
             <UserInfo />
-          </div>
-          <div className='flex gap-2'>
-          <ModeToggle />
-          <SignOutButton />
-
           </div>
         </div>
         <AddTodoForm />
