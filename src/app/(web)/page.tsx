@@ -1,7 +1,5 @@
 import { AddTodoForm, TodoList } from '@/modules/todos'
-import { SignOutButton } from '@/features/auth/ui'
 import { UserInfo } from '@/modules/user'
-import { ModeToggle } from '@/shared/ui'
 
 export default function Home() {
   return (

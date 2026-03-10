@@ -5,9 +5,8 @@ import { useTheme } from 'next-themes'
 import { Moon, Sun } from 'lucide-react'
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '../dropdown-menu'
 import { Button } from '../button'
@@ -26,17 +25,27 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-          <DropdownMenuRadioItem onClick={() => setTheme('light')} value={'light'} >
-            Light
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem onClick={() => setTheme('dark')} value={'dark'}>
-            Dark
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem onClick={() => setTheme('system')} value={'system'}>
-            System
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
+        <DropdownMenuCheckboxItem
+          onClick={() => setTheme('light')}
+          checked={position === 'light'}
+          onCheckedChange={() => setPosition('light')}
+        >
+          Light
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          onClick={() => setTheme('dark')}
+          checked={position === 'dark'}
+          onCheckedChange={() => setPosition('dark')}
+        >
+          Dark
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          onClick={() => setTheme('system')}
+          checked={position === 'system'}
+          onCheckedChange={() => setPosition('system')}
+        >
+          System
+        </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

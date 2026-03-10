@@ -10,6 +10,7 @@ import {
 } from '@/shared/ui'
 import { createClient } from '@/shared/utils/supabase/server'
 import { SignOutButton } from '@/features/auth/ui'
+import { LanguageSwitcher } from '@/features/language-switcher'
 
 export async function Navbar() {
   const supabase = await createClient()
@@ -39,6 +40,7 @@ export async function Navbar() {
 
       <div className="flex gap-2">
         <ModeToggle />
+        <LanguageSwitcher />
         {user ? (
           <SignOutButton />
         ) : (
