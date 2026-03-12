@@ -19,7 +19,7 @@ export async function Navbar() {
   } = await supabase.auth.getUser()
 
   return (
-    <NavigationMenu className="max-w-full w-full justify-around px-4 py-2 border-b">
+    <NavigationMenu className="max-w-full w-full justify-between px-20 py-2 border-b">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
@@ -44,7 +44,7 @@ export async function Navbar() {
         {user ? (
           <SignOutButton />
         ) : (
-          <Button size="sm">
+          <Button asChild size="sm">
             <Link href="/login">Sign In</Link>
           </Button>
         )}

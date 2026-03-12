@@ -1,8 +1,9 @@
+export { AppPreview } from './app-preview'
 export { ModeToggle } from './mode-toggle'
 
 export * from './card'
 export * from './checkbox'
-export * from './button'
+export { Button, buttonVariants } from './button'
 export * from './dialog'
 export * from './field'
 export * from './label'

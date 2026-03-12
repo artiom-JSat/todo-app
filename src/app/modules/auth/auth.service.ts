@@ -20,7 +20,7 @@ export async function signUp(prevData: unknown, formData: FormData) {
   }
 
   revalidatePath('/')
-  redirect('/')
+  redirect('/dashboard')
 }
 
 export async function signIn(prevState: unknown, formData: FormData) {
@@ -39,7 +39,7 @@ export async function signIn(prevState: unknown, formData: FormData) {
   }
 
   revalidatePath('/')
-  redirect('/')
+  redirect('/dashboard')
 }
 
 export async function signOut() {
@@ -47,5 +47,5 @@ export async function signOut() {
   await supabase.auth.signOut()
   
   revalidatePath('/')
-  redirect('/login')
+  redirect('/')
 }
